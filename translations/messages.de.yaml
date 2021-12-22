@@ -1,0 +1,42 @@
+default: Administration
+general:  Allgemein
+application: Bewerbung
+booking: Buchen
+about: Über mich
+faq:  häufige Fragen
+contact: Kontakt
+portfolio: Portfolio
+pricetable: Preisliste
+highlights: Highlights
+login: Anmelden
+register: Registrieren
+logout: Abmelden
+profile: Profil
+
+ROLE_ADMIN: Administrator
+ROLE_USER: Benutzer
+Email: E-Mail-Adresse
+Password: Passwort
+Repeat Password: Passwort wiederholen
+Roles: Benutzerrollen
+admin: Administrator
+user: Benutzer
+User: Benutzer
+Privat Name: Ansprechpartner
+Private Name: Ansprechpartner
+First name: Vorname
+Last name: Nachname
+Company Name: Firmenname
+Line1: Firmenname 1
+Line2: Firmenname 2
+Line3: Firmenname 3
+Line4: Firmenname 4
+Address: Adresse
+Street: Straße
+Postal code: Postleitzahl
+City: Stadt
+Country: Land
+User List: Benutzerliste
+User Create: Benutzer erstellen
+Menu: Menüs
+Menu Entries: Menüeinträge

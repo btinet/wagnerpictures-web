@@ -2,7 +2,7 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>{% block title %}{{ website.title|default('n/a') }}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
@@ -14,14 +14,20 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            {% block header %}{% endblock %}
-        </header>
+    {{ include('icons.html.twig') }}
+
+            {% block header %}
+                {{ include('navigation/_global_menu.html.twig') }}
+            {% endblock %}
+
         <main>
             {% block body %}{% endblock %}
         </main>
         <footer>
-            {% block footer %}{% endblock %}
+            {% block footer %}
+                {{ include('navigation/_footer_menu.html.twig') }}
+            {% endblock %}
         </footer>
+        {{ include('navigation/_offcanvas.html.twig') }}
     </body>
 </html>

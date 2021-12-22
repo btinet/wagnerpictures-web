@@ -1,0 +1,38 @@
+<nav class="py-2 bg-dark border-bottom inset">
+    <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto d-inline d-lg-none">
+            <li><a class="nav-link link-light px-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                    <svg class="bi me-2 text-white" width="20" height="20" fill="currentColor">
+                        <use xlink:href="#list"></use>
+                    </svg>
+                </a></li>
+        </ul>
+        {{ knp_menu_render('main',{'depth': 1}) }}
+        {% if is_granted('ROLE_ADMIN') %}
+            <ul class="nav">
+                <li class="nav-item"><a href="{{ path('sonata_admin_dashboard') }}" class="nav-link link-light px-2">{{ 'admin'|trans }}</a></li>
+            </ul>
+        {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <ul class="nav">
+                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2">{{ 'profile'|trans }}</a></li>
+                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2">{{ 'logout'|trans }}</a></li>
+            </ul>
+            {% else %}
+                {{ knp_menu_render('login',{'depth': 1}) }}
+        {% endif %}
+    </div>
+</nav>
+<header class="py-3 mb-4 border-bottom">
+    <div class="container d-flex justify-content-center">
+        <a href="/" class="d-flex align-items-center  me-lg-auto text-dark text-decoration-none">
+            <svg class="bi me-2 text-white" width="40" height="32" fill="currentColor">
+                <use xlink:href="#wp-logo-3"></use>
+            </svg>
+            <span class="fs-5">Wagner Pictures</span>
+        </a>
+        <form class="col-12 col-lg-auto d-none d-lg-block">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+    </div>
+</header>

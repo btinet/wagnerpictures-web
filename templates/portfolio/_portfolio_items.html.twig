@@ -1,0 +1,40 @@
+<div class="row row-cols-1 row-cols-lg-3 g-2">
+    {% for item in samples %}
+        <div class="col">
+            <div class="card bg-white shadow-hover">
+                <a href="{{ url('portfolio_index') }}">
+                    <img  class="img-fluid rounded-top" src="{{ vich_uploader_asset(item)|imagine_filter('sample_image') }}" alt="{{ item.title }}" style="min-height: 357px">
+                </a>
+                <div class="card-body card-overlay">
+                    <p class="card-text small badge bg-dark mb-0">
+                        {{ item.tags.name|default('nicht getagged') }}
+                    </p>
+                    <a href="#" class="stretched-link"></a>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="card-text fw-bolder text-truncate mb-0">{{ item.title }}</p>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center">
+                            {% if loop.index == 5 or loop.index == 1 %}
+                                <span class="small me-1">{{ 23 * loop.index }}</span>
+                                <a href="#" class="link-heart me-2"><i class="bi bi-heart-fill"></i></a>
+                                <a href="#" class="link-dark"><i class="bi bi-chat-left-dots"></i></a>
+                                {% else %}
+                                    <a href="#" class="link-heart me-2"><i class="bi bi-heart"></i></a>
+                                    <a href="#" class="link-dark"><i class="bi bi-chat-left-dots"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="card-text text-truncate small">{{ item.description }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if samples|length == 0 %}
+        <div class="col-12">
+            <p class="">Noch keine Elemente vorhanden.</p>
+        </div>
+    {% endif %}
+</div>

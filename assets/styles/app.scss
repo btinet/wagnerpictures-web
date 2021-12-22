@@ -1,3 +1,337 @@
-body {
-    background-color: lightgray;
+
+
+// Required
+@import "~bootstrap/scss/functions";
+@import "fonts";
+
+// Colors
+//======================================================================================================================
+$systemBlue:	rgba(  0,122,255,1);
+$systemGreen:	rgba( 52,199, 89,1);
+$systemIndigo:	rgba( 88, 86,214,1);
+$systemOrange:	rgba(255,149,  0,1);
+$systemPink:	rgba(255, 45, 85,1);
+$systemPurple:	rgba(175, 82,222,1);
+$systemRed:	    rgba(255, 59, 48,1);
+$systemTeal:	rgba( 90,200,250,1);
+$systemYellow:	rgba(255,204,  0,1);
+
+$systemGray:	rgba(142,142,147,1);
+$systemGray2:	rgba(174,174,178,1);
+$systemGray3:	rgba(199,199,204,1);
+$systemGray4:	rgba(209,209,214,1);
+$systemGray5:	rgba(229,229,234,1);
+$systemGray6:	rgba(242,242,247,.8);
+
+$clear: 		rgba(  0,  0,  0,0);
+$full-black:	rgba( 8, 8, 12,1);
+$black:		    rgba( 54, 54, 54,1);
+$white:		    rgba(255,255,255,1);
+
+$body-bg:       lighten($systemGray6,3);
+$body-color:    rgba($black,.9);
+
+.bg-lighter{background-color: lighten($systemGray6,1)}
+
+// Default variable overrides
+$border-radius:                     .3rem;
+$border-radius-lg:                  .3rem;
+$border-radius-sm:                  .2rem;
+$grid-gutter-width:                 2.5rem;
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px
+);
+
+
+$table-border-color: $systemGray5;
+$table-group-separator-color: $systemGray2;
+$table-border-width: 1px;
+
+
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+
+$colors: (
+        "blue":       $systemBlue,
+        "indigo":     $systemIndigo,
+        "purple":     $systemPurple,
+        "pink":       $systemPink,
+        "red":        $systemRed,
+        "orange":     $systemOrange,
+        "yellow":     $systemYellow,
+        "green":      $systemGreen,
+        "teal":       $systemTeal,
+        "cyan":       $cyan,
+        "white":      $white,
+        "gray":       $systemGray2,
+        "gray-dark":  $systemGray
+) !default;
+
+$primary:       $systemBlue;
+$secondary:     $systemGray2;
+$success:       $systemGreen;
+$info:          $systemTeal;
+$warning:       $systemOrange;
+$danger:        $systemRed;
+$light:         $systemGray6;
+$dark:          $black;
+
+$theme-colors: (
+        "primary":    $primary,
+        "secondary":  $secondary,
+        "success":    $success,
+        "info":       $info,
+        "warning":    $warning,
+        "danger":     $danger,
+        "heart":      $pink,
+        "light":      $light,
+        "dark":       $dark,
+        "black":       $full-black,
+        "white":      $white,
+);
+
+$custom-control-indicator-checked-bg: map-get($theme-colors, 'primary');
+$custom-select-focus-border-color: map-get($theme-colors, 'primary');
+@import "lists";
+@import "buttons";
+
+// Input Forms
+//======================================================================================================================
+
+$input-bg:                              rgba($white,.8);
+$input-disabled-bg:                     rgba($systemGray5,.8);
+$input-color:                           $body-color;
+$input-border-color:                    $systemGray6;
+
+
+// Component Settings
+//======================================================================================================================
+
+$component-active-bg:               rgba($systemGray5,.2);
+$input-btn-focus-width:             1px;
+$link-hover-color:                  $systemBlue;
+
+$border-color:                      $systemGray5;
+$input-border-color:                $systemGray5;
+$input-focus-border-color:          $systemBlue;
+
+$border-radius:                     .3rem;
+$border-radius-lg:                  .3rem;
+$border-radius-sm:                  .2rem;
+$grid-gutter-width:                 2.5rem;
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px
+);
+
+
+
+.shadow-hover{
+  -webkit-transition: all .3s cubic-bezier(0.79, 0.33, 0.14, 0.53);
+  transition: all .3s cubic-bezier(0.79, 0.33, 0.14, 0.53);
+  border: none;
+  box-shadow: 0 0 .25rem transparentize(map-get($theme-colors,"dark"),.9);
+  position: relative;
+
+  .card-overlay{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: calc(0.3rem - 1px);
+  }
+
+  img {
+    filter: grayscale(1) brightness(.7);
+  }
+
+  .card-body{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 3rem;
+    color: $white;
+  }
+
+  .card-icon-bar{
+    position: absolute;
+    right:0;
+    top: 1em;
+    opacity: 0;
+  }
+}
+
+
+
+.shadow-hover-section{
+  .shadow-hover img{
+    filter: grayscale(0) brightness(1);
+  }
+}
+
+.shadow-hover-section:hover{
+  .shadow-hover img{
+    animation-duration: .3s;
+    animation-name: animation-greyscale-do;
+    animation-fill-mode: forwards;
+  }
+}
+
+.shadow-hover:hover{
+  box-shadow: 0 0 .5rem transparentize(map-get($theme-colors,"dark"),.6);
+  img{
+    animation-duration: .3s;
+    animation-name: animation-greyscale!important;
+    animation-fill-mode: forwards;
+  }
+  .card-body{
+    animation-duration: .3s;
+    animation-name: animation-opacity;
+    animation-fill-mode: forwards;
+  }
+
+  .card-icon-bar{
+    animation-duration: .3s;
+    animation-name: animation-fade-in;
+    animation-fill-mode: forwards;
+  }
+}
+
+
+@keyframes animation-greyscale {
+  from {
+    filter: grayscale(1) brightness(.8);
+  }
+
+  to {
+    filter: grayscale(0) brightness(1);
+  }
+}
+
+@keyframes animation-greyscale-do {
+  from {
+    filter: grayscale(0) brightness(1);
+  }
+
+  to {
+    filter: grayscale(1) brightness(.8);
+  }
+}
+
+@keyframes animation-opacity {
+  from {
+    opacity: 1;
+    top: 0;
+    z-index: 5;
+  }
+
+  to {
+    opacity: 0;
+    top: 1em;
+    z-index: -5;
+  }
+}
+
+@keyframes animation-fade-in {
+  from {
+    opacity: 0;
+    top:1em;
+  }
+
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+// Card Colors
+//======================================================================================================================
+
+$card-border-color:                 $input-border-color;
+
+// List Group
+//======================================================================================================================
+$list-group-bg:                     rgba($white,.8);
+$list-group-hover-bg:               rgba($systemGray5,.1);
+$list-group-action-active-bg:       rgba($systemGray5,.2);
+$list-group-border-color:           $card-border-color;
+
+// Layout & components
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/accordion";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/offcanvas";
+
+// Helpers
+@import "~bootstrap/scss/helpers";
+@import "~bootstrap/scss/utilities/api";
+@import "~bootstrap-icons/font/bootstrap-icons";
+
+*{
+  -webkit-tap-highlight-color: transparent;
+}
+
+.inset {
+  padding-left: env(safe-area-inset-left, 16px);
+  padding-right:  env(safe-area-inset-right, 16px);
+}
+
+.inset-left {
+  padding-left: env(safe-area-inset-left, 16px);
+}
+
+html, body{height: 100%;min-height: 100%}
+body{display: flex;flex-direction: column;justify-content: space-between;letter-spacing: -.022em;}
+header{
+  background-color: transparentize($white,.4);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+main{flex-grow: 1}
+
+.nav-link{
+  opacity: .6;
+}
+
+.nav-link:hover{
+  opacity: 1;
+  -webkit-transition: opacity .2s cubic-bezier(0.79, 0.33, 0.14, 0.53);
+  transition: opacity .2s cubic-bezier(0.79, 0.33, 0.14, 0.53);
+}
+
+li.current{
+  a{
+    opacity: 1!important;
+  }
 }

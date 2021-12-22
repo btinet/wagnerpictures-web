@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <h1 class="lead pb-3">
+                        Ausgewählte Arbeiten
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-lighter py-5 shadow-hover-section">
+        <div class="container">
+            {{ include('portfolio/_portfolio_items.html.twig') }}
+        </div>
+    </section>
+    <section class="py-5">
+        <div class="container">
+
+        </div>
+    </section>
+{% endblock %}

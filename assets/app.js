@@ -10,3 +10,7 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+import {} from 'bootstrap';
+import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
+

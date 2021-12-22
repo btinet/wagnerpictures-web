@@ -1,0 +1,50 @@
+sonata_admin:
+    title: 'Backoffice'
+    title_logo: 'apple-icon-57x57.png'
+    dashboard:
+        groups:
+            app.admin.group.content:
+                label: user
+                label_catalogue: messages
+                items:
+                    - admin.user
+            app.content:
+                label: content
+                label_catalogue: messages
+                items:
+                    - admin.tags
+                    - admin.sample_images
+            app.menu.content:
+                label: menus
+                label_catalogue: messages
+                items:
+                    - admin.menu
+                    - admin.menu_entries
+        blocks:
+            - position: left                              # zone in the dashboard
+              type: sonata.admin.block.admin_preview # block id
+              settings:
+                  code: admin.user        # admin code - service id
+                  icon: fas fa-magic                     # font awesome icon
+                  limit: 10
+                  text: letzten 10 Benutzer
+                  filters: # filter values
+                      _sort_by: updatedAt
+                      _sort_order: DESC
+            - { type: sonata.admin.block.admin_list, position: left }
+            - position: right
+              type: sonata.block.service.text
+              settings:
+                  content: >
+                      <h2>Welcome to the Sonata Admin</h2>
+                      <p>This is a <code>sonata.block.service.text</code> from the Block
+                      Bundle, you can create and add new block in these area by configuring
+                      the <code>sonata_admin</code> section.</p> <br/> For instance, here
+                      a RSS feed parser (<code>sonata.block.service.rss</code>):
+
+
+
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]

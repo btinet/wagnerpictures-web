@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.path.sample_images: /uploads/images/samples
 
 services:
     # default configuration for services in *this* file
@@ -21,5 +22,40 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: [ '%kernel.default_locale%' ]
+
+    app.menu_builder:
+        class: App\Menu\MenuBuilder
+        arguments: [ "@knp_menu.factory" ]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+            - { name: knp_menu.menu_builder, method: createLoginMenu, alias: login }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    admin.menu:
+        class: App\Admin\MenuAdmin
+        arguments: [ ~, App\Entity\Menu, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Menu }
+    admin.menu_entries:
+        class: App\Admin\MenuEntryAdmin
+        arguments: [ ~, App\Entity\MenuEntry, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Menu Entries }
+    admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [ ~, App\Entity\User, ~,'@security.password_hasher' ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: User }
+    admin.sample_images:
+        class: App\Admin\SampleImageAdmin
+        arguments: [ ~, App\Entity\SampleImage, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Sample Images }
+    admin.tags:
+        class: App\Admin\TagAdmin
+        arguments: [ ~, App\Entity\Tag, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Tags }
