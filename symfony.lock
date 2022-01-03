@@ -109,6 +109,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v3.2.0"
     },
+    "knplabs/knp-time-bundle": {
+        "version": "1.17.0"
+    },
     "laminas/laminas-code": {
         "version": "4.5.0"
     },

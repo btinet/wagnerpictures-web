@@ -12,7 +12,7 @@ $systemIndigo:	rgba( 88, 86,214,1);
 $systemOrange:	rgba(255,149,  0,1);
 $systemPink:	rgba(255, 45, 85,1);
 $systemPurple:	rgba(175, 82,222,1);
-$systemRed:	    rgba(255, 59, 48,1);
+$systemRed:	    #e5005b;
 $systemTeal:	rgba( 90,200,250,1);
 $systemYellow:	rgba(255,204,  0,1);
 
@@ -30,6 +30,7 @@ $white:		    rgba(255,255,255,1);
 
 $body-bg:       lighten($systemGray6,3);
 $body-color:    rgba($black,.9);
+$input-btn-focus-width: 0;
 
 .bg-lighter{background-color: lighten($systemGray6,1)}
 
@@ -49,13 +50,6 @@ $table-border-color: $systemGray5;
 $table-group-separator-color: $systemGray2;
 $table-border-width: 1px;
 
-
-// Required
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/utilities";
-
 $colors: (
         "blue":       $systemBlue,
         "indigo":     $systemIndigo,
@@ -66,11 +60,11 @@ $colors: (
         "yellow":     $systemYellow,
         "green":      $systemGreen,
         "teal":       $systemTeal,
-        "cyan":       $cyan,
+        "cyan":       $systemTeal,
         "white":      $white,
         "gray":       $systemGray2,
         "gray-dark":  $systemGray
-) !default;
+);
 
 $primary:       $systemBlue;
 $secondary:     $systemGray2;
@@ -88,12 +82,21 @@ $theme-colors: (
         "info":       $info,
         "warning":    $warning,
         "danger":     $danger,
-        "heart":      $pink,
+        "heart":      $danger,
         "light":      $light,
         "dark":       $dark,
         "black":       $full-black,
         "white":      $white,
 );
+
+
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+
+
 
 $custom-control-indicator-checked-bg: map-get($theme-colors, 'primary');
 $custom-select-focus-border-color: map-get($theme-colors, 'primary');
@@ -335,3 +338,39 @@ li.current{
     opacity: 1!important;
   }
 }
+
+li.current{
+  a.list-group-item-action{
+    font-weight: bolder!important;
+    background-color: $systemGray6;
+    color: $dark;
+  }
+}
+
+.comment-list {
+}
+@include media-breakpoint-up(sm) {
+  .comment-list {
+    -webkit-overflow-scrolling: touch; overflow-y: auto;overflow-x: hidden;max-height: 522px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .comment-list {
+    -webkit-overflow-scrolling: touch; overflow-y: auto;overflow-x: hidden;max-height: 261px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .comment-list {
+    -webkit-overflow-scrolling: touch; overflow-y: auto;overflow-x: hidden;max-height: 424px;
+  }
+}
+
+form label.required:after
+{
+  color: $systemRed;
+  content: " *";
+}
+
+@import "./returnvalues-iconfont-master/iconfont/css/iconfont.min.css";

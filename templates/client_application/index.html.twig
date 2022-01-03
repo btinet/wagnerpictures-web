@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <h1 class="display-4 mt-2">{{ 'application'|trans }}</h1>
+                    <p class="lead">{{ 'application_sub'|trans }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-lighter py-5 shadow-hover-section">
+        <div class="container" id="sample_items">
+            <div class="card shadow">
+                {% if app.user %}
+                    <div class="card-body">
+                        <h2 class="h4 fw-normal pb-2">Neue Bewerbung anlegen</h2>
+                        <div class="position-relative m-4 pb-3">
+                            <div class="progress" style="height: 1px;">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>
+                            <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-light text-muted rounded-pill" style="width: 2rem; height:2rem;">2</button>
+                            <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-light text-muted rounded-pill" style="width: 2rem; height:2rem;">3</button>
+                        </div>
+                        <p class="lead">
+                            Hallo {{ app.user.privatName.firstname }}!
+                        </p>
+                        <div class="alert alert-light shadow-sm border">
+                            Vielen Dank für dein Interesse als Model. Lade im ersten Schritt mindestens ein aussagekräftiges Bild von dir hoch.
+                            <a href="#">Tipps & Hinweise</a> findest du auch hier.
+                        </div>
+                        <form method="post" id="client_image_upload">
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Wähle ein oder mehrere Bilder aus:</label>
+                                <input class="form-control form-select-sm" type="file" id="formFileMultiple" name="application_images[]" multiple>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload_image') }}">
+                            </div>
+                        </form>
+                        <p>
+                            Im nächsten Schritt kannst du weitere Angaben zu deiner Motivation machen. Erst, nachdem du alle Angaben abschließend
+                            überprüft hast, wird die Bewerbung abgesendet.
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white p-2">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <button type="submit" form="client_image_upload" class="btn btn-lg w-100 btn-primary">Weiter</button>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card-body">
+                        Nix
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </section>
+    <section class="py-5">
+        <div class="container">
+
+        </div>
+    </section>
+{% endblock %}

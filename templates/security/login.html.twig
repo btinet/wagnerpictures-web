@@ -7,7 +7,8 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col">
-                    <h1 class="display-1 mb-4">Contribute </h1>
+                    <h1 class="display-4 mt-2">{{ 'contribute'|trans }}</h1>
+                    <p class="lead">{{ 'contribute_sub'|trans }}</p>
                 </div>
             </div>
         </div>
@@ -18,18 +19,38 @@
                 <div class="col-lg-7">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3 text-center">
-                            <h4 class="my-0 fw-normal">Login</h4>
+                            <h2 class="my-0 h4 fw-normal">{{ 'login'|trans }}</h2>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
                             {{ include('security/_login_form.html.twig') }}
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <p class="lead">
-                        Noch nicht dabei? Dann jetzt registrieren!
+                        Noch nicht dabei? Dann jetzt <a href="{{ path('app_register') }}">{{ 'register'|trans }}</a>!
                     </p>
+                    <p>
+                        Als registrierter Nutzer profitierst du von vielen Vorteilen.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="d-flex justify-content-start align-items-center mb-2">
+                            <img src="{{ asset('build/images/icons/icons8_love_circled_32px.png') }}" class="me-2" alt="like">
+                            Liken und kommentieren
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-2">
+                            <img src="{{ asset('build/images/icons/icons8_event_32px.png') }}" class="me-2" alt="like">
+                            Buchungsübersicht
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-2">
+                            <img src="{{ asset('build/images/icons/icons8_day_view_32px.png') }}" class="me-2" alt="like">
+                            Auftragsverwaltung
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-2">
+                            <img src="{{ asset('build/images/icons/icons8_notification_32px.png') }}" class="me-2" alt="like">
+                            Aktuelle Neuigkeiten
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

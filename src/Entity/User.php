@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Embedded;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -56,6 +58,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private bool $isVerified = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=SampleLike::class, mappedBy="user")
+     */
+    private $sampleLikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SampleComment::class, mappedBy="user")
+     */
+    private $sampleComments;
+
+    public function __construct()
+    {
+        $this->sampleLikes = new ArrayCollection();
+        $this->sampleComments = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -207,6 +225,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SampleLike[]
+     */
+    public function getSampleLikes(): Collection
+    {
+        return $this->sampleLikes;
+    }
+
+    public function addSampleLike(SampleLike $sampleLike): self
+    {
+        if (!$this->sampleLikes->contains($sampleLike)) {
+            $this->sampleLikes[] = $sampleLike;
+            $sampleLike->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSampleLike(SampleLike $sampleLike): self
+    {
+        if ($this->sampleLikes->removeElement($sampleLike)) {
+            $sampleLike->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SampleComment[]
+     */
+    public function getSampleComments(): Collection
+    {
+        return $this->sampleComments;
+    }
+
+    public function addSampleComment(SampleComment $sampleComment): self
+    {
+        if (!$this->sampleComments->contains($sampleComment)) {
+            $this->sampleComments[] = $sampleComment;
+            $sampleComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSampleComment(SampleComment $sampleComment): self
+    {
+        if ($this->sampleComments->removeElement($sampleComment)) {
+            // set the owning side to null (unless already changed)
+            if ($sampleComment->getUser() === $this) {
+                $sampleComment->setUser(null);
+            }
+        }
 
         return $this;
     }

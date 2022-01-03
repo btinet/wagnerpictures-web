@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\SampleImageRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -33,9 +36,9 @@ class SampleImage
     private ?string $description;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $isPublished;
+    private int $isPublished;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -65,6 +68,22 @@ class SampleImage
      * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="sampleImages")
      */
     private $tags;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=SampleLike::class, mappedBy="sample")
+     */
+    private $sampleLikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SampleComment::class, mappedBy="sampleImage")
+     */
+    private $sampleComments;
+
+    public function __construct()
+    {
+        $this->sampleLikes = new ArrayCollection();
+        $this->sampleComments = new ArrayCollection();
+    }
 
 
     public function __toString()
@@ -106,15 +125,13 @@ class SampleImage
         $this->description = $description;
     }
 
-    public function isPublished()
+    public function getIsPublished()
     {
         return $this->isPublished;
     }
 
-    /**
-     * @param bool $isPublished
-     */
-    public function setIsPublished(bool $isPublished): void
+
+    public function setIsPublished($isPublished): void
     {
         $this->isPublished = $isPublished;
     }
@@ -189,6 +206,63 @@ class SampleImage
     public function setTags(?Tag $tags): self
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SampleLike[]
+     */
+    public function getSampleLikes(): Collection
+    {
+        return $this->sampleLikes;
+    }
+
+    public function addSampleLike(SampleLike $sampleLike): self
+    {
+        if (!$this->sampleLikes->contains($sampleLike)) {
+            $this->sampleLikes[] = $sampleLike;
+            $sampleLike->addSample($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSampleLike(SampleLike $sampleLike): self
+    {
+        if ($this->sampleLikes->removeElement($sampleLike)) {
+            $sampleLike->removeSample($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SampleComment[]
+     */
+    public function getSampleComments(): Collection
+    {
+        return $this->sampleComments;
+    }
+
+    public function addSampleComment(SampleComment $sampleComment): self
+    {
+        if (!$this->sampleComments->contains($sampleComment)) {
+            $this->sampleComments[] = $sampleComment;
+            $sampleComment->setSampleImage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSampleComment(SampleComment $sampleComment): self
+    {
+        if ($this->sampleComments->removeElement($sampleComment)) {
+            // set the owning side to null (unless already changed)
+            if ($sampleComment->getSampleImage() === $this) {
+                $sampleComment->setSampleImage(null);
+            }
+        }
 
         return $this;
     }

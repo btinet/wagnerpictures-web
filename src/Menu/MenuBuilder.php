@@ -35,12 +35,68 @@ class MenuBuilder
 
         if($menuEntity) {
             foreach ($menuEntity->getMenuEntries() as $entry) {
-                $menu->addChild($entry->getTitle(), ['route' => $entry->getRoute()])
-                    ->setAttributes(['class' => 'nav-item'])
-                    ->setLinkAttributes(['class' => 'nav-link link-light px-2']);
+                if($entry->getRoute() == 'portfolio_index')
+                {
+                    $menu->addChild($entry->getTitle(), [
+                        'route' => $entry->getRoute(),
+                        'extras' => [
+                            'routes' => [
+                                [
+                                    'route' => 'portfolio_show',
+                                ],
+                            ],
+                        ],
+                    ])
+                        ->setAttributes(['class' => 'nav-item'])
+                        ->setLinkAttributes(['class' => 'nav-link link-light px-2']);
+                } else{
+                    $menu->addChild($entry->getTitle(), ['route' => $entry->getRoute()])
+                        ->setAttributes(['class' => 'nav-item'])
+                        ->setLinkAttributes(['class' => 'nav-link link-light px-2'])
+                        ;
+                }
             }
         }
+        return $menu;
+    }
 
+    public function createSidebarMenu(array $options): ItemInterface
+    {
+        $menuRepository = $this->em->getRepository(Menu::class);
+        $menuEntity = $menuRepository->findOneBy([
+            'slug' => 'main'
+        ]);
+
+        $menu = $this->factory->createItem('root')
+            ->setExtra('translation_domain', 'menu');
+        $menu->setChildrenAttributes([
+            'class' => 'list-group list-group-flush'
+        ]);
+
+        if($menuEntity) {
+            foreach ($menuEntity->getMenuEntries() as $entry) {
+                if($entry->getRoute() == 'portfolio_index')
+                {
+                    $menu->addChild($entry->getTitle(), [
+                        'route' => $entry->getRoute(),
+                        'extras' => [
+                            'routes' => [
+                                [
+                                    'route' => 'portfolio_show',
+                                ],
+                            ],
+                        ],
+                    ])
+                        ->setAttributes(['class' => 'list-group-item p-0'])
+                        ->setLinkAttributes(['class' => 'list-group-item list-group-item-action']);
+                } else{
+                    $menu->addChild($entry->getTitle(), ['route' => $entry->getRoute()])
+                        ->setAttributes(['class' => 'list-group-item p-0'])
+                        ->setLinkAttributes(['class' => 'list-group-item list-group-item-action'])
+                    ;
+                }
+            }
+        }
         return $menu;
     }
 
@@ -61,7 +117,8 @@ class MenuBuilder
             foreach ($menuEntity->getMenuEntries() as $entry) {
                 $menu->addChild($entry->getTitle(), ['route' => $entry->getRoute()])
                     ->setAttributes(['class' => 'nav-item'])
-                    ->setLinkAttributes(['class' => 'nav-link link-light px-2']);
+                    ->setLinkAttributes(['class' => 'nav-link link-light px-2'])
+                ;
             }
         }
 

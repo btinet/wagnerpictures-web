@@ -7,7 +7,8 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col">
-                    <h1 class="display-1 mb-4">Contribute </h1>
+                    <h1 class="display-4 mt-2">{{ 'contribute'|trans }}</h1>
+                    <p class="lead">{{ 'contribute_sub'|trans }}</p>
                 </div>
             </div>
         </div>
@@ -15,31 +16,51 @@
     <section class="bg-lighter py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-5">
+                    <p class="lead sticky-top" style="top: 50px">
+                        Bereits registriert? Jetzt <a href="{{ path('app_login') }}">{{ 'login'|trans }}</a>!
+                    </p>
+                </div>
+                <div class="col-lg-7">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3 text-center">
-                            <h4 class="my-0 fw-normal">Sign up</h4>
+                            <h4 class="my-0 fw-normal">{{ 'register'|trans }}</h4>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
                             {% for flashError in app.flashes('verify_email_error') %}
                                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                             {% endfor %}
-                            {{ form_start(registrationForm) }}
+                        </div>
+
+                            {{ form_start(registrationForm,{
+                                'attr':{'class':'needs-validation','novalidate':'novalidate'},
+                            }) }}
+                        <div class="card-body border-bottom">
+                            <div class="form-check mb-3">
+                                <input id="is_company" type="checkbox" class="form-check-input">
+                                <label for="is_company" class="form-check-label">{{ 'is_company'|trans }}</label>
+                            </div>
+                            <div id="company_name_fieldset" style="display: none">
+                                {{ form_row(registrationForm.companyName) }}
+                            </div>
+
+                            {{ form_row(registrationForm.privatName) }}
+                        </div>
+                        <div class="card-body border-bottom">
                             {{ form_row(registrationForm.email) }}
                             {{ form_row(registrationForm.plainPassword, {
                                 label: 'Password'
                             }) }}
-                            {{ form_row(registrationForm.agreeTerms) }}
-                            <button type="submit" class="btn">Register</button>
-                            {{ form_end(registrationForm) }}
+                            {{ form_row(registrationForm.locale) }}
                         </div>
+                        <div class="card-body">
+                            {{ form_row(registrationForm.address) }}
+                            {{ form_row(registrationForm.agreeTerms) }}
+                            <button type="submit" class="btn btn-primary btn-lg w-100">{{ 'register'|trans }}</button>
+                        </div>
+                            {{ form_end(registrationForm) }}
+
                     </div>
-                </div>
-                <div class="col-lg-4 order-lg-first">
-                    <p class="lead">
-                        Noch nicht dabei? Dann jetzt registrieren!
-                    </p>
                 </div>
             </div>
         </div>

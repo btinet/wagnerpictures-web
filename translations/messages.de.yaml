@@ -1,6 +1,7 @@
 default: Administration
 general:  Allgemein
 application: Bewerbung
+application_sub: Bewirb dich auf ein Trade-For-Print Shooting.
 booking: Buchen
 about: Über mich
 faq:  häufige Fragen
@@ -8,10 +9,25 @@ contact: Kontakt
 portfolio: Portfolio
 pricetable: Preisliste
 highlights: Highlights
+downloads: Downloads
+contribute: Sei dabei!
+contribute_sub: Werde Teil der Community.
 login: Anmelden
 register: Registrieren
+Agree terms: Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert.
+is_company: Als Geschäftskunde registrieren
+Locale: Bevorzugte Sprache
+de: Deutsch
+en: English
+
 logout: Abmelden
 profile: Profil
+comment saved: Kommentar gespeichert.
+comment not saved: Kommentar nicht gespeichert.
+
+email: E-Mail-Adresse
+password: Passwort
+remember_me: Eingeloggt bleiben
 
 ROLE_ADMIN: Administrator
 ROLE_USER: Benutzer
@@ -27,12 +43,12 @@ Private Name: Ansprechpartner
 First name: Vorname
 Last name: Nachname
 Company Name: Firmenname
-Line1: Firmenname 1
-Line2: Firmenname 2
+Line1: Firmenname
+Line2: Firmenzusatz
 Line3: Firmenname 3
 Line4: Firmenname 4
 Address: Adresse
-Street: Straße
+Street: Straße und Hausnummer
 Postal code: Postleitzahl
 City: Stadt
 Country: Land

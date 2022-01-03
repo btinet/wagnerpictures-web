@@ -1,4 +1,4 @@
-<form method="post">
+<form method="post" class="needs-validation" novalidate>
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -8,23 +8,26 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">{{ 'email'|trans }}</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">{{ 'password'|trans }}</label>
     <input type="password" name="password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
+    <div class="form-check  mb-3">
+        <input type="checkbox" id="remember_me" class="form-check-input" name="_remember_me">
+        <label for="remember_me" class="form-check-label">{{ 'remember_me'|trans }}</label>
     </div>
+    <p class="text-justify small">
+        Mit klick auf Anmelden erklärst du dich mit den allgemeinen Geschäftsbedingungen und den Datenschutzbestimmungen einverstanden.
+    </p>
 
 
-    <button class="btn btn-lg btn-primary w-100" type="submit">
-        Sign in
+    <button class="btn btn-lg btn-primary w-100 mb-3" type="submit">
+        {{ 'login'|trans }}
     </button>
+    <a href="#">Passwort vergessen?</a>
 </form>

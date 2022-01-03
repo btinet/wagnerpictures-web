@@ -16,9 +16,7 @@ class AppController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('app/index.html.twig', [
-            'controller_name' => 'AppController',
-        ]);
+        return $this->redirectToRoute('portfolio_index');
     }
 
 
@@ -33,13 +31,4 @@ class AppController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/application", name="application")
-     */
-    public function application(): Response
-    {
-        return $this->render('app/index.html.twig', [
-            'controller_name' => 'AppController',
-        ]);
-    }
 }

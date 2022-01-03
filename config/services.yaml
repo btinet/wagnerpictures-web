@@ -30,6 +30,7 @@ services:
         arguments: [ "@knp_menu.factory" ]
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+            - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar }
             - { name: knp_menu.menu_builder, method: createLoginMenu, alias: login }
 
     # add more service definitions when explicit configuration is needed
@@ -54,6 +55,11 @@ services:
         arguments: [ ~, App\Entity\SampleImage, ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Sample Images }
+    admin.sample_comments:
+        class: App\Admin\SampleCommentAdmin
+        arguments: [ ~, App\Entity\SampleComment, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Sample Comments }
     admin.tags:
         class: App\Admin\TagAdmin
         arguments: [ ~, App\Entity\Tag, ~ ]

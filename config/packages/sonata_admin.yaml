@@ -12,8 +12,9 @@ sonata_admin:
                 label: content
                 label_catalogue: messages
                 items:
-                    - admin.tags
                     - admin.sample_images
+                    - admin.sample_comments
+                    - admin.tags
             app.menu.content:
                 label: menus
                 label_catalogue: messages

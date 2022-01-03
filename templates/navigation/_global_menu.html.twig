@@ -1,3 +1,14 @@
+{% if app.session.flashbag.peekAll|length > 0 %}
+    {% for type, messages in app.session.flashbag.all %}
+        {% for message in messages %}
+            <section class="bg-{{ type ? type : '' }} py-2">
+                <div class="container text-light">
+                <span>{{ message|trans({}, domain|default('messages')) }}</span>
+                </div>
+            </section>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
 <nav class="py-2 bg-dark border-bottom inset">
     <div class="container d-flex flex-wrap">
         <ul class="nav me-auto d-inline d-lg-none">
@@ -7,23 +18,23 @@
                     </svg>
                 </a></li>
         </ul>
-        {{ knp_menu_render('main',{'depth': 1}) }}
+        {{ knp_menu_render('main',{'depth': 1,'allow_safe_labels': true}) | raw }}
         {% if is_granted('ROLE_ADMIN') %}
             <ul class="nav">
-                <li class="nav-item"><a href="{{ path('sonata_admin_dashboard') }}" class="nav-link link-light px-2">{{ 'admin'|trans }}</a></li>
+                <li class="nav-item"><a href="{{ path('sonata_admin_dashboard') }}" class="nav-link link-light px-2"><i class="bi bi-gear"></i></a></li>
             </ul>
         {% endif %}
         {% if is_granted('ROLE_USER') %}
             <ul class="nav">
-                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2">{{ 'profile'|trans }}</a></li>
-                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2">{{ 'logout'|trans }}</a></li>
+                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2"><i class="bi bi-person me-1"></i>{{ app.user.companyName|default(app.user.privatName) }}</a></li>
+                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2"><i class="bi bi-box-arrow-in-right"></i></a></li>
             </ul>
             {% else %}
                 {{ knp_menu_render('login',{'depth': 1}) }}
         {% endif %}
     </div>
 </nav>
-<header class="py-3 mb-4 border-bottom">
+<header class="py-3 border-bottom">
     <div class="container d-flex justify-content-center">
         <a href="/" class="d-flex align-items-center  me-lg-auto text-dark text-decoration-none">
             <svg class="bi me-2 text-white" width="40" height="32" fill="currentColor">

@@ -9,7 +9,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -38,8 +37,11 @@ class SampleImageAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('title')
+            ->add('image',VichImageType::class,[
+                'attributes' => ['class' => 'img-fluid']
+            ])
             ->add('description')
-            ->add('isPublished')
+            ->add('isPublished',BooleanType::class)
         ;
     }
 
