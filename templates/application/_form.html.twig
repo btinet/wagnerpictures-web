@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+<h3>Images</h3>
+<ul class="images" data-index="{{ form.images|length > 0 ? form.images|last.vars.id + 1 : 0 }}" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+    {% for item in form.images %}
+        <li>{{ form_row(item.id) }}</li>
+        {% else %}
+        <l>noch keine Bilder hochgeladen.</l>
+    {% endfor %}
+</ul>
+<button type="button" class="add_item_link" data-collection-holder-class="images">Add a Image</button>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

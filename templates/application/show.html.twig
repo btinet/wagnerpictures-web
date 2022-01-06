@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Application{% endblock %}
+
+{% block body %}
+    <h1>Application</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ application.id }}</td>
+            </tr>
+            <tr>
+                <th>IsComplete</th>
+                <td>{{ application.isComplete ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Experience</th>
+                <td>{{ application.experience }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ application.created ? application.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ application.updated ? application.updated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Model.height</th>
+                <td>{{ application.model.height }}</td>
+            </tr>
+            <tr>
+                <th>Model.weight</th>
+                <td>{{ application.model.weight }}</td>
+            </tr>
+            <tr>
+                <th>Model.shoeSize</th>
+                <td>{{ application.model.shoeSize }}</td>
+            </tr>
+            <tr>
+                <th>Model.clothingSize</th>
+                <td>{{ application.model.clothingSize }}</td>
+            </tr>
+            <tr>
+                <th>Model.hairColor</th>
+                <td>{{ application.model.hairColor }}</td>
+            </tr>
+            <tr>
+                <th>Model.eyeColor</th>
+                <td>{{ application.model.eyeColor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('application_index') }}">back to list</a>
+
+    <a href="{{ path('application_edit', {'id': application.id}) }}">edit</a>
+
+    {{ include('application/_delete_form.html.twig') }}
+{% endblock %}

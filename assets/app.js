@@ -152,3 +152,30 @@ function validateForm($i){
 
 }
 
+let addItemLinks = App.findBy('.add_item_link');
+
+Array.prototype.slice.call(addItemLinks)
+    .forEach(function (element) {
+        element.addEventListener('click',function(e) {
+                addFormToCollection(e);
+            },
+            false)
+    })
+
+const addFormToCollection = (e) => {
+    const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+    console.log(collectionHolder);
+    const item = document.createElement('li');
+
+    item.innerHTML = collectionHolder
+        .dataset
+        .prototype
+        .replace(
+            /__name__/g,
+            collectionHolder.dataset.index
+        );
+
+    collectionHolder.appendChild(item);
+
+    collectionHolder.dataset.index++;
+};

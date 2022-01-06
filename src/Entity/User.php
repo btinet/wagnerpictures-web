@@ -69,10 +69,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sampleComments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Application::class, mappedBy="user")
+     */
+    private $applications;
+
     public function __construct()
     {
         $this->sampleLikes = new ArrayCollection();
         $this->sampleComments = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     public function __toString()
@@ -280,6 +286,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($sampleComment->getUser() === $this) {
                 $sampleComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Application[]
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): self
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications[] = $application;
+            $application->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): self
+    {
+        if ($this->applications->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getUser() === $this) {
+                $application->setUser(null);
             }
         }
 
