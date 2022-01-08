@@ -13,7 +13,10 @@ class ApplicationImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile',VichImageType::class)
+            ->add('imageFile',VichImageType::class,[
+               'attr'=> ['class' => 'form-control-sm'],
+                'label' => false
+            ])
         ;
     }
 

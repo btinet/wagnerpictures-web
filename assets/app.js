@@ -166,7 +166,8 @@ const addFormToCollection = (e) => {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
     console.log(collectionHolder);
     const item = document.createElement('li');
-
+    App.setClass(item,'list-group-item')
+    App.setClass(item,'p-0')
     item.innerHTML = collectionHolder
         .dataset
         .prototype

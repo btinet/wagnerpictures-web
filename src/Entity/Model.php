@@ -9,22 +9,22 @@ use Doctrine\ORM\Mapping\Embeddable;
 class Model
 {
 
-    /** @Column(type = "string") */
+    /** @Column(type = "string", nullable=true) */
     private $height;
 
-    /** @Column(type = "string") */
+    /** @Column(type = "string", nullable=true) */
     private $weight;
 
-    /** @Column(type = "string") */
+    /** @Column(type = "string", nullable=true) */
     private $shoeSize;
 
-    /** @Column(type = "string") */
+    /** @Column(type = "string", nullable=true) */
     private $clothingSize;
 
-    /** @Column(type = "string") */
+    /** @Column(type = "string", nullable=true) */
     private $hairColor;
 
-    /** @Column(type = "string") */
+    /** @Column(type = "string", nullable=true) */
     private $eyeColor;
 
     /**

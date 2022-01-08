@@ -15,13 +15,14 @@
         Vielen Dank für dein Interesse als Model. Lade im ersten Schritt mindestens ein aussagekräftiges Bild von dir hoch.
         <a href="#">Tipps & Hinweise</a> findest du auch hier.
     </div>
-    <form method="post" id="client_image_upload">
-        <div class="mb-3">
-            <label for="formFileMultiple" class="form-label">Wähle ein oder mehrere Bilder aus:</label>
-            <input class="form-control form-select-sm" type="file" id="formFileMultiple" name="application_images[]" multiple>
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload_image') }}">
-        </div>
-    </form>
+    {{ form_start(form,{'attr':{'id':'application_image_only'}}) }}
+    <ul class="images list-group list-group-flush" data-index="{{ form.images|length > 0 ? form.images|last.vars.id + 1 : 0 }}" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+        {% for item in form.images %}
+            <li class="list-group-item">{{ form_row(item.id) }}</li>
+        {% endfor %}
+    </ul>
+    <button type="button" class="add_item_link btn btn-light text-dark w-100 btn-sm" data-collection-holder-class="images">Bild hinzufügen</button>
+    {{ form_end(form) }}
     <p>
         Im nächsten Schritt kannst du weitere Angaben zu deiner Motivation machen. Erst, nachdem du alle Angaben abschließend
         überprüft hast, wird die Bewerbung abgesendet.
@@ -29,6 +30,6 @@
 </div>
 <div class="card-footer bg-white p-2">
     <div class="d-flex justify-content-end align-items-center">
-        <button type="submit" form="client_image_upload" class="btn btn-lg w-100 btn-primary">Weiter</button>
+        <button type="submit" form="application_image_only" class="btn btn-lg w-100 btn-primary">{{ button_label|default('Save') }}</button>
     </div>
 </div>

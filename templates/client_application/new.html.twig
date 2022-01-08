@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <h1 class="display-4 mt-2">{{ 'application'|trans }}</h1>
+                    <p class="lead">{{ 'application_sub'|trans }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-lighter py-5 shadow-hover-section">
+        <div class="container" id="sample_items">
+            <div class="card shadow">
+                {% if app.user %}
+                    {{ include('client_application/_image_form.html.twig') }}
+                {% else %}
+                    <div class="card-body">
+                        Nix
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </section>
+    <section class="py-5">
+        <div class="container">
+
+        </div>
+    </section>
+{% endblock %}
