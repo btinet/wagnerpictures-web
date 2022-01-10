@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MenuEntryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -55,6 +57,21 @@ class MenuEntry
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $icon;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=MenuEntry::class, inversedBy="menuEntries")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MenuEntry::class, mappedBy="parent")
+     */
+    private $menuEntries;
+
+    public function __construct()
+    {
+        $this->menuEntries = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -134,6 +151,48 @@ class MenuEntry
     public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getMenuEntries(): Collection
+    {
+        return $this->menuEntries;
+    }
+
+    public function addMenuEntry(self $menuEntry): self
+    {
+        if (!$this->menuEntries->contains($menuEntry)) {
+            $this->menuEntries[] = $menuEntry;
+            $menuEntry->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMenuEntry(self $menuEntry): self
+    {
+        if ($this->menuEntries->removeElement($menuEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($menuEntry->getParent() === $this) {
+                $menuEntry->setParent(null);
+            }
+        }
 
         return $this;
     }

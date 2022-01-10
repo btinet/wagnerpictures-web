@@ -2,6 +2,9 @@ default: Administration
 general:  Allgemein
 application: Bewerbung
 application_sub: Bewirb dich auf ein Trade-For-Print Shooting.
+application_new: Neue Bewerbung
+next: Weiter
+cancel: Abbrechen
 booking: Buchen
 about: Über mich
 faq:  häufige Fragen

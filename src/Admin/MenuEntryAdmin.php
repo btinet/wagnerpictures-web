@@ -22,6 +22,11 @@ final class MenuEntryAdmin extends AbstractAdmin
             ->add('type', ModelType::class, [
                 'class' => Menu::class,
                 'property' => 'title',
+                'required' => false
+            ])
+            ->add('parent', ModelType::class, [
+                'class' => MenuEntry::class,
+                'property' => 'title',
             ])
             ->add('title', TextType::class)
             ->add('route', TextType::class)
@@ -34,11 +39,15 @@ final class MenuEntryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list->addIdentifier('title')
+            ->add('parent', ModelType::class, [
+                'class' => MenuEntry::class,
+                'property' => 'title',
+            ])
+            ->add('route', TextType::class)
             ->add('type', EntityType::class, [
                 'class' => Menu::class,
                 'choice_label' => 'name',
             ])
-            ->add('route', TextType::class)
             ->add('icon', TextType::class);
     }
 

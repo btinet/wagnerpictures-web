@@ -52,7 +52,7 @@ class Application
     private $updated;
 
     /**
-     * @ORM\OneToMany(targetEntity=ApplicationImage::class, mappedBy="application", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=ApplicationImage::class, mappedBy="application", cascade={"persist","remove"})
      */
     private $images;
 

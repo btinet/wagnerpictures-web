@@ -35,25 +35,23 @@ class MenuBuilder
 
         if($menuEntity) {
             foreach ($menuEntity->getMenuEntries() as $entry) {
-                if($entry->getRoute() == 'portfolio_index')
+                $routes = [];
+                if($entry->getParent() == null)
                 {
+                    foreach($entry->getMenuEntries() as $child)
+                    {
+                        $routes[] = ['route' => $child->getRoute()];
+                    }
                     $menu->addChild($entry->getTitle(), [
                         'route' => $entry->getRoute(),
                         'extras' => [
-                            'routes' => [
-                                [
-                                    'route' => 'portfolio_show',
-                                ],
-                            ],
+                            'routes' => $routes,
                         ],
                     ])
                         ->setAttributes(['class' => 'nav-item'])
-                        ->setLinkAttributes(['class' => 'nav-link link-light px-2']);
-                } else{
-                    $menu->addChild($entry->getTitle(), ['route' => $entry->getRoute()])
-                        ->setAttributes(['class' => 'nav-item'])
                         ->setLinkAttributes(['class' => 'nav-link link-light px-2'])
                         ;
+
                 }
             }
         }
@@ -64,7 +62,7 @@ class MenuBuilder
     {
         $menuRepository = $this->em->getRepository(Menu::class);
         $menuEntity = $menuRepository->findOneBy([
-            'slug' => 'main'
+            'slug' => 'main',
         ]);
 
         $menu = $this->factory->createItem('root')
@@ -75,25 +73,21 @@ class MenuBuilder
 
         if($menuEntity) {
             foreach ($menuEntity->getMenuEntries() as $entry) {
-                if($entry->getRoute() == 'portfolio_index')
+                $routes = [];
+                if($entry->getParent() == null)
                 {
+                    foreach($entry->getMenuEntries() as $child)
+                    {
+                        $routes[] = ['route' => $child->getRoute()];
+                    }
                     $menu->addChild($entry->getTitle(), [
                         'route' => $entry->getRoute(),
                         'extras' => [
-                            'routes' => [
-                                [
-                                    'route' => 'portfolio_show',
-                                ],
-                            ],
+                            'routes' => $routes,
                         ],
                     ])
                         ->setAttributes(['class' => 'list-group-item p-0'])
                         ->setLinkAttributes(['class' => 'list-group-item list-group-item-action']);
-                } else{
-                    $menu->addChild($entry->getTitle(), ['route' => $entry->getRoute()])
-                        ->setAttributes(['class' => 'list-group-item p-0'])
-                        ->setLinkAttributes(['class' => 'list-group-item list-group-item-action'])
-                    ;
                 }
             }
         }
