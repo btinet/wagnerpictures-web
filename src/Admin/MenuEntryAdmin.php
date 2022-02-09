@@ -27,6 +27,7 @@ final class MenuEntryAdmin extends AbstractAdmin
             ->add('parent', ModelType::class, [
                 'class' => MenuEntry::class,
                 'property' => 'title',
+                'required' => false
             ])
             ->add('title', TextType::class)
             ->add('route', TextType::class)

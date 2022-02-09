@@ -2,6 +2,7 @@
 
 namespace App\Admin;
 
+use App\Entity\SampleImage;
 use App\Entity\Tag;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -19,6 +20,17 @@ class SampleImageAdmin extends AbstractAdmin
         $form
             ->add('imageFile',VichImageType::class,[
                 'required'=>false,
+            ])
+            ->add('parent',ModelType::class,[
+                'class' => SampleImage::class,
+                'property' => 'title',
+                'required' => false
+            ])
+            ->add('children',ModelType::class,[
+                'class' => SampleImage::class,
+                'property' => 'title',
+                'multiple' => true,
+                'required' => false
             ])
             ->add('tags',ModelType::class,[
                 'class' => Tag::class

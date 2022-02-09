@@ -37,16 +37,20 @@ class PortfolioController extends AbstractController
         if(!$tagFilter)
         {
             $sampleSearchOptions = [
-                'isPublished'=>true
+                'isPublished'=>true,
+                'parent' => null
             ]
             ;
         } else {
             $sampleSearchOptions = [
                 'isPublished'=>true,
-                'tags' => $tagFilter
+                'tags' => $tagFilter,
+                'parent' => null
             ]
             ;
         }
+
+
         $samples = $sampleRepository->findBy($sampleSearchOptions);
 
         return $this->render('portfolio/index.html.twig', [

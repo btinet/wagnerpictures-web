@@ -42,8 +42,8 @@ if(isCompany){
 
 App.form.submitOn(App.findBy('.filter_form'),'change')
 
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new Tooltip(tooltipTriggerEl)
 })
 
@@ -51,9 +51,9 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     'use strict'
 
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
+let forms = document.querySelectorAll('.needs-validation');
 
-    // Loop over them and prevent submission
+// Loop over them and prevent submission
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
             form.addEventListener('submit', function (event) {

@@ -66,6 +66,7 @@ class SampleImageRepository extends ServiceEntityRepository
 
             ->andWhere('s.id < :id')
             ->andWhere('s.isPublished = TRUE')
+            ->andWhere('s.parent is null')
             ->setParameter(':id', $id)
             ->orderBy('s.id', 'DESC')
             ->setFirstResult(0)
@@ -82,6 +83,7 @@ class SampleImageRepository extends ServiceEntityRepository
 
             ->andWhere('s.id > :id')
             ->andWhere('s.isPublished = TRUE')
+            ->andWhere('s.parent is null')
             ->setParameter(':id', $id)
             ->orderBy('s.id', 'ASC')
             ->setFirstResult(0)

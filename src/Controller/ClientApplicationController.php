@@ -63,7 +63,7 @@ class ClientApplicationController extends AbstractController
      */
     public function show(Application $application): Response
     {
-        return $this->render('application/show.html.twig', [
+        return $this->render('client_application/show.html.twig', [
             'application' => $application,
         ]);
     }
@@ -79,7 +79,7 @@ class ClientApplicationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('application_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('application_show', ['id'=>$application->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('application/edit.html.twig', [
