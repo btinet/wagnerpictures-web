@@ -26,7 +26,9 @@ class ClientApplicationController extends AbstractController
     public function index(ApplicationRepository $applicationRepository): Response
     {
         return $this->render('client_application/index.html.twig', [
-            'applications' => $applicationRepository->findAll(),
+            'applications' => $applicationRepository->findBy([
+                'isComplete' => false
+            ]),
         ]);
     }
 
@@ -73,19 +75,42 @@ class ClientApplicationController extends AbstractController
      */
     public function edit(Request $request, Application $application, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ApplicationType::class, $application);
-        $form->handleRequest($request);
+        if(!$application->getIsComplete())
+        {
+            $form = $this->createForm(ApplicationType::class, $application);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('application_show', ['id'=>$application->getId()], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('application_show', ['id'=>$application->getId()], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('client_application/edit.html.twig', [
+                'application' => $application,
+                'form' => $form,
+            ]);
+        } else {
+            return $this->redirectToRoute('application_show',['id' => $application->getId()]);
         }
 
-        return $this->renderForm('application/edit.html.twig', [
-            'application' => $application,
-            'form' => $form,
-        ]);
+    }
+
+    /**
+     * @Route("/{id}/submit", name="submit", methods={"POST"})
+     */
+    public function submit(Request $request, Application $application, EntityManagerInterface $entityManager): Response
+    {
+        if (
+            $this->isCsrfTokenValid('submit'.$application->getId(), $request->request->get('_token'))
+            and
+            !empty($application->getModel())
+        ) {
+            $application->setIsComplete(true);
+            $entityManager->persist($application);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('application_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**

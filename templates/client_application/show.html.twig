@@ -15,15 +15,22 @@
                         <div class="btn-group btn-group-sm">
                             <form method="post" action="{{ path('application_delete', {'id': application.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ application.id) }}">
-                                <button class="btn btn-sm btn-light text-danger d-flex justify-content-start align-items-center">
+                                <button class="btn btn-sm btn-light d-flex justify-content-start align-items-center">
                                     <i class="bi bi-trash mx-2"></i>
                                     <span class="d-none d-md-block me-2">Bewerbung löschen</span>
                                 </button>
                             </form>
-                            <a href="{{ path('application_edit',{'id':application.id}) }}" class="btn btn-sm btn-primary d-flex justify-content-start align-items-center">
-                                <i class="bi bi-pen mx-2"></i>
-                                <span class="d-none d-md-block me-2">Bewerbung bearbeiten</span>
-                            </a>
+                            {% if application.isComplete %}
+                                <span  class="btn btn-sm btn-light d-flex justify-content-start align-items-center disabled">
+                                    <i class="bi bi-pen mx-2"></i>
+                                    <span class="d-none d-md-block me-2">Bewerbung bearbeiten</span>
+                                </span>
+                                {% else %}
+                                    <a href="{{ path('application_edit',{'id':application.id}) }}" class="btn btn-sm btn-light d-flex justify-content-start align-items-center">
+                                        <i class="bi bi-pen mx-2"></i>
+                                        <span class="d-none d-md-block me-2">Bewerbung bearbeiten</span>
+                                    </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -74,41 +81,40 @@
                                 <p class="card-text small badge bg-dark">
                                     {{ application.isComplete ? 'abgeschlossen' : 'unvollständig' }}
                                 </p>
+                                    <div class="d-flex flex-column justify-content-start align-items-start">
+                                        <span class="small fw-bolder">Bisherige Erfahrungen</span>
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            {{ application.experience }}
+                                        </div>
+                                    </div>
                                 <p class="card-text small mb-0">{{ application.created|ago }} erstellt.</p>
                             </div>
-                            <div class="card-footer bg-white">
-                                <div class="d-flex flex-column justify-content-start align-items-start">
-                                    <span class="small fw-bolder">Bisherige Erfahrungen</span>
-                                    <div class="d-flex justify-content-end align-items-center">
-                                        {{ application.experience }}
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="flex-grow-1 comment-list">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item border-top">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="small fw-bolder">Größe</span>
                                         </div>
-                                        <span class="small">{{ application.model.height }}</span>
+                                        <span class="small">{{ application.model.height }} cm</span>
                                     </li>
                                     <li class="list-group-item border-top">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="small fw-bolder">Gewicht</span>
                                         </div>
-                                        <span class="small">{{ application.model.weight }}</span>
+                                        <span class="small">{{ application.model.weight }} kg</span>
                                     </li>
                                     <li class="list-group-item border-top">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="small fw-bolder">Konfektionsgröße</span>
                                         </div>
-                                        <span class="small">{{ application.model.clothingsize }}</span>
+                                        <span class="small">{{ application.model.clothingsize }} (EU)</span>
                                     </li>
                                     <li class="list-group-item border-top">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="small fw-bolder">Schuhgröße</span>
                                         </div>
-                                        <span class="small">{{ application.model.shoesize }}</span>
+                                        <span class="small">{{ application.model.shoesize }} (EU)</span>
                                     </li>
                                     <li class="list-group-item border-top">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -126,11 +132,19 @@
 
                             </div>
                             <div class="card-footer bg-white px-2">
-                                <form method="post" action="{{ path('portfolio_comment_add') }}" class="needs-validation" novalidate>
-                                    <label for="comment_input" class="d-none">Kommentar</label>
+                                {% if application.isComplete %}
+                                    <span  class="btn btn-sm btn-light d-flex justify-content-center align-items-center disabled">
+                                    <i class="bi bi-send mx-2"></i>
+                                    <span class="d-none d-md-block me-2">Bewerbung abgesendet</span>
+                                </span>
+                                {% else %}
+                                    <form method="post" action="{{ path('application_submit', {'id': application.id}) }}" class="needs-validation" novalidate>
+                                        <input type="hidden" name="_token" value="{{ csrf_token('submit' ~ application.id) }}">
+                                        <label for="comment_input" class="d-none">Absenden</label>
                                         <input type="hidden" name="application_id" value="{{ application.id }}" required="required">
-                                        <button type="submit" id="submit_application_{{ application.id }}" class="btn btn-sm btn-primary w-100"><i class="bi bi-send me-2"></i>Bewerbung absenden</button>
-                                </form>
+                                        <button type="submit" class="btn btn-sm btn-primary w-100"><i class="bi bi-send me-2"></i>Bewerbung absenden</button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -13,9 +13,24 @@ class ApplicationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $attr =[
+            'attr' => [
+                'class' => 'bg-light border-0  form-control-sm'
+            ],
+            'row_attr' => [
+                'class' => 'border-bottom mb-3'
+            ],
+            'label_attr' => [
+                'class' => 'small fw-bolder'
+            ],
+        ];
+
         $builder
-            ->add('model',ModelType::class)
-            ->add('experience',TextareaType::class)
+            ->add('experience',TextareaType::class,$attr)
+            ->add('model',ModelType::class,[
+                'label' => false
+            ])
+
         ;
     }
 
