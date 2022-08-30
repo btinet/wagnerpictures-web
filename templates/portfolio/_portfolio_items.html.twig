@@ -2,7 +2,7 @@
     {% for item in samples %}
         <div class="col">
             <div class="card bg-white shadow-hover">
-                <a href="{{ path('portfolio_show',{'id':item.id}) }}">
+                <a href="{{ path('portfolio_show',{'uuid':item.uuid}) }}">
                     <img  class="img-fluid rounded-top" src="{{ vich_uploader_asset(item)|imagine_filter('sample_image') }}" alt="{{ item.title }}" style="min-height: 357px">
                 </a>
                 <div class="card-body card-overlay">
@@ -34,12 +34,12 @@
                                     </a>
 
                             {% endif %}
-                            <a href="{{ path('portfolio_show',{'id':item.id}) }}" class="link-dark"><i class="bi bi-chat-square"></i></a>
+                            <a href="{{ path('portfolio_show',{'uuid':item.uuid}) }}" class="link-dark"><i class="bi bi-chat-square"></i></a>
                         </div>
                     </div>
                     <p class="card-text text-truncate small mb-0">{{ item.description }}</p>
                     {% if item.sampleComments.count > 0 %}
-                        <a href="{{ path('portfolio_show',{'id':item.id}) }}" class="small link-secondary">Alle {{ item.sampleComments.count }} Kommentare ansehen</a>
+                        <a href="{{ path('portfolio_show',{'uuid':item.uuid}) }}" class="small link-secondary">Alle {{ item.sampleComments.count }} Kommentare ansehen</a>
                         {% else %}
                         <psan class="small text-secondary">noch keine Kommentare</psan>
                     {% endif %}

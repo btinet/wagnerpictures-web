@@ -41,6 +41,16 @@ services:
         arguments: [ ~, App\Entity\Menu, ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Menu }
+    admin.system_form:
+        class: App\Admin\SystemFormAdmin
+        arguments: [~, App\Entity\SystemForm,~]
+        tags:
+            - {name: sonata.admin, manager_type: orm, label: System Forms}
+    admin.profile_setting:
+        class: App\Admin\ProfileSettingAdmin
+        arguments: [ ~, App\Entity\ProfileSetting,~ ]
+        tags:
+          - { name: sonata.admin, manager_type: orm, label: Profile Settings }
     admin.menu_entries:
         class: App\Admin\MenuEntryAdmin
         arguments: [ ~, App\Entity\MenuEntry, ~ ]

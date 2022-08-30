@@ -12,3 +12,5 @@ login: Sign in
 register: Sign up
 logout: Log off
 profile: Profile
+settings: settings
+orders: orders

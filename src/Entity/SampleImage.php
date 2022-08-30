@@ -6,6 +6,7 @@ use App\Repository\SampleImageRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
@@ -23,6 +24,11 @@ class SampleImage
      * @ORM\Column(type="integer")
      */
     private int $id;
+
+    /**
+     * @ORM\Column(type="uuid", unique=true)
+     */
+    private $uuid;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -93,6 +99,8 @@ class SampleImage
         $this->sampleLikes = new ArrayCollection();
         $this->sampleComments = new ArrayCollection();
         $this->children = new ArrayCollection();
+
+        $this->uuid = Uuid::v4();
     }
 
 
@@ -108,6 +116,15 @@ class SampleImage
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUuid(): Uuid
+    {
+        return $this->uuid;
+    }
+
 
     /**
      * @return mixed

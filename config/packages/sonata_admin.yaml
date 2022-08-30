@@ -8,6 +8,8 @@ sonata_admin:
                 label_catalogue: messages
                 items:
                     - admin.user
+                    - admin.system_form
+                    - admin.profile_setting
             app.content:
                 label: content
                 label_catalogue: messages

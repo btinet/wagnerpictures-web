@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Application;
-use App\Entity\User;
 use App\Form\ApplicationImageOnlyType;
 use App\Form\ApplicationType;
 use App\Repository\ApplicationRepository;

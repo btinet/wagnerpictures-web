@@ -373,4 +373,14 @@ form label.required:after
   content: " *";
 }
 
+h1.lead{
+  font-size: 16px!important;
+}
+
+section.sticky-top{
+  z-index: 900;
+}
+
 @import "./returnvalues-iconfont-master/iconfont/css/iconfont.min.css";
+@import "./slim-select/slim-select.css";
+

@@ -9,7 +9,7 @@
         {% endfor %}
     {% endfor %}
 {% endif %}
-<nav class="py-2 bg-dark border-bottom inset">
+<nav class="py-1 bg-dark border-bottom inset">
     <div class="container d-flex flex-wrap">
         <ul class="nav me-auto d-inline d-lg-none">
             <li><a class="nav-link link-light px-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -26,8 +26,32 @@
         {% endif %}
         {% if is_granted('ROLE_USER') %}
             <ul class="nav">
-                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2"><i class="bi bi-person me-1"></i>{{ app.user.companyName|default(app.user.privatName) }}</a></li>
-                <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-light px-2"><i class="bi bi-box-arrow-in-right"></i></a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle link-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person me-1"></i>{{ app.user.companyName|default(app.user.privatName) }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ path('profile_index') }}">
+                                <i class="bi bi-images me-2"></i>
+                                {% trans %}orders{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ path('profile_index') }}">
+                                <i class="bi bi-gear me-2"></i>
+                                {% trans %}settings{% endtrans %}
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                {% trans %}logout{% endtrans %}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             {% else %}
                 {{ knp_menu_render('login',{'depth': 1}) }}

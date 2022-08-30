@@ -8,26 +8,29 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class TagAdmin extends AbstractAdmin
+class SystemFormAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('name',TextType::class)
+            ->add('title',TextType::class)
+            ->add('formType',TextType::class)
         ;
     }
 
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('name')
+            ->addIdentifier('title')
+            ->add('formType')
             ->add('slug')
         ;
     }
 
     protected function configureShowFields(ShowMapper $show): void
     {
-        $show->add('name');
+        $show->add('title');
+        $show->add('formType');
         $show->add('slug');
     }
 

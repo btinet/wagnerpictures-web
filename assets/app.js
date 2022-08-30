@@ -11,6 +11,9 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
+import SlimSelect from 'slim-select'
+
+
 import {Tooltip, ScrollSpy} from 'bootstrap';
 import Core from "./app/core";
 
@@ -20,6 +23,20 @@ let isCompany = App.findOneBy('#is_company');
 let companyFieldset = App.findOneBy('#company_name_fieldset');
 
 let $buttons = document.querySelectorAll('.disabled')
+
+if (App.findOneBy('.slim-select'))
+{
+    new SlimSelect({
+        select: '.slim-select',
+        placeholder: 'auswählen...',
+        showSearch: true,
+        searchText: 'nichts gefunden',
+        searchPlaceholder: 'filtern...',
+        searchFocus: false, // Whether or not to focus on the search input field
+        searchHighlight: true
+    })
+}
+
 
 // Loop over them and prevent submission
 Array.prototype.slice.call($buttons)

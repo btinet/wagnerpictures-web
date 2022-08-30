@@ -11,20 +11,22 @@
                             <div class="d-flex justify-content-start align-items-center">
                                 <div class="btn-group btn-group-sm">
                                     {% if sample_prev %}
-                                        <a href="{{ path('portfolio_show',{'id': sample_prev.id}) }}" class="btn btn-sm btn-light"><i class="bi bi-chevron-left"></i></a>
+                                        <a href="{{ path('portfolio_show',{'uuid': sample_prev.uuid}) }}" class="btn btn-sm btn-light"><i class="bi bi-chevron-left"></i></a>
                                     {% else %}
                                         <a href="#" class="btn btn-sm btn-light disabled"><i class="bi bi-chevron-left"></i></a>
                                     {% endif %}
                                     <a href="{{ path('portfolio_index') }}" class="btn btn-sm btn-primary">
                                         <i class="bi bi-images me-1"></i>
-                                        <span class="d-none d-sm-inline">{{ 'portfolio'|trans }}</span>
+                                        <span>{{ 'portfolio'|trans }}</span>
                                     </a>
                                 </div>
-                                <h1 class="lead mb-0 text-truncate px-3 d-none d-sm-inline">Portfolio Details</h1>
+                                <h1 class="lead mb-0 text-truncate px-3 d-none d-sm-inline">
+                                    Portfolio Details
+                                </h1>
                             </div>
                             <div class="btn-group btn-group-sm">
                                 {% if sample_next %}
-                                    <a href="{{ path('portfolio_show',{'id': sample_next.id}) }}" class="btn btn-sm btn-light"><i class="bi bi-chevron-right"></i></a>
+                                    <a href="{{ path('portfolio_show',{'uuid': sample_next.uuid}) }}" class="btn btn-sm btn-light"><i class="bi bi-chevron-right"></i></a>
                                 {% else %}
                                     <a href="#" class="btn btn-sm btn-light disabled"><i class="bi bi-chevron-right"></i></a>
                                 {% endif %}

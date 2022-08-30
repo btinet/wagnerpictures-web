@@ -15,7 +15,8 @@ class ApplicationType extends AbstractType
     {
         $attr =[
             'attr' => [
-                'class' => 'bg-light border-0  form-control-sm'
+                'class' => 'bg-lighter border-0  form-control-sm',
+                'style' => 'background-color: var(--bs-gray-100)'
             ],
             'row_attr' => [
                 'class' => 'border-bottom mb-3'

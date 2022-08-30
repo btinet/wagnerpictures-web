@@ -62,9 +62,9 @@ class PortfolioController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show")
+     * @Route("/{uuid}", name="show")
      */
-    public function show($id, ManagerRegistry $doctrine): Response
+    public function show($uuid, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
         $samplesLikedByUser = null;
@@ -75,12 +75,12 @@ class PortfolioController extends AbstractController
         }
 
         $sample = $sampleRepository->findOneBy([
-            'id' => $id,
+            'uuid' => $uuid,
             'isPublished'=>true
         ]);
 
-        $nextPost = $sampleRepository->getNextPost($id);
-        $prevPost = $sampleRepository->getPreviousPost($id);
+        $nextPost = $sampleRepository->getNextPost($sample->getId());
+        $prevPost = $sampleRepository->getPreviousPost($sample->getId());
 
         return $this->render('portfolio/show.html.twig', [
             'sample' => $sample,
@@ -117,7 +117,7 @@ class PortfolioController extends AbstractController
         }
         if($sampleImage)
         {
-            return $this->redirectToRoute('portfolio_show',['id' => $sampleImage->getId()]);
+            return $this->redirectToRoute('portfolio_show',['uuid' => $sampleImage->getUuid()]);
         } else {
             return $this->redirectToRoute('portfolio_index');
         }
