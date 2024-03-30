@@ -62,8 +62,9 @@ class ClientApplicationController extends AbstractController
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      */
-    public function show(Application $application): Response
+    public function show(int $id, EntityManagerInterface $entityManager): Response
     {
+        $application = $entityManager->find(Application::class,$id);
         return $this->render('client_application/show.html.twig', [
             'application' => $application,
         ]);
@@ -72,8 +73,9 @@ class ClientApplicationController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Application $application, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
+        $application = $entityManager->find(Application::class,$id);
         if(!$application->getIsComplete())
         {
             $form = $this->createForm(ApplicationType::class, $application);
@@ -98,8 +100,9 @@ class ClientApplicationController extends AbstractController
     /**
      * @Route("/{id}/submit", name="submit", methods={"POST"})
      */
-    public function submit(Request $request, Application $application, EntityManagerInterface $entityManager): Response
+    public function submit(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
+        $application = $entityManager->find(Application::class,$id);
         if (
             $this->isCsrfTokenValid('submit'.$application->getId(), $request->request->get('_token'))
             and
@@ -115,8 +118,9 @@ class ClientApplicationController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"POST"})
      */
-    public function delete(Request $request, Application $application, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
+        $application = $entityManager->find(Application::class,$id);
         if ($this->isCsrfTokenValid('delete'.$application->getId(), $request->request->get('_token'))) {
             $entityManager->remove($application);
             $entityManager->flush();

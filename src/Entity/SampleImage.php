@@ -43,7 +43,7 @@ class SampleImage
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $isPublished;
+    public $isPublished;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -152,16 +152,23 @@ class SampleImage
         $this->description = $description;
     }
 
+    /**
+     * @return mixed
+     */
     public function getIsPublished()
     {
         return $this->isPublished;
     }
 
-
+    /**
+     * @param mixed $isPublished
+     */
     public function setIsPublished($isPublished): void
     {
         $this->isPublished = $isPublished;
     }
+
+
 
     /**
      * @return mixed

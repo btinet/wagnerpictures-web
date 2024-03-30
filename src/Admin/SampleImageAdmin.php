@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -36,8 +37,9 @@ class SampleImageAdmin extends AbstractAdmin
                 'class' => Tag::class
             ])
             ->add('title',TextType::class)
-            ->add('description',TextType::class,[
+            ->add('description',TextareaType::class,[
                 'required'=>false,
+                'attr' => ['rows' => 6]
             ])
             ->add('isPublished',BooleanType::class,[
                 'required'=>false,
