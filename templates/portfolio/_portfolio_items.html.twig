@@ -37,7 +37,7 @@
                             <a href="{{ path('portfolio_show',{'uuid':item.uuid}) }}" class="link-dark"><i class="bi bi-chat-square"></i></a>
                         </div>
                     </div>
-                    <p class="card-text text-truncate small mb-0">{{ item.description }}</p>
+
                     {% if item.sampleComments.count > 0 %}
                         <a href="{{ path('portfolio_show',{'uuid':item.uuid}) }}" class="small link-secondary">Alle {{ item.sampleComments.count }} Kommentare ansehen</a>
                         {% else %}

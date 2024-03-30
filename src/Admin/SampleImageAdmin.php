@@ -4,6 +4,8 @@ namespace App\Admin;
 
 use App\Entity\SampleImage;
 use App\Entity\Tag;
+use Eckinox\TinymceBundle\Form\Type\TinymceType;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -37,9 +39,9 @@ class SampleImageAdmin extends AbstractAdmin
                 'class' => Tag::class
             ])
             ->add('title',TextType::class)
-            ->add('description',TextareaType::class,[
+            ->add('description',TinymceType::class,[
                 'required'=>false,
-                'attr' => ['rows' => 6]
+                'attr' => ['rows' => 6,'class' => 'tinymce',"toolbar" => "bold italic underline | bullist numlist",]
             ])
             ->add('isPublished',BooleanType::class,[
                 'required'=>false,
